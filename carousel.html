@@ -24,10 +24,14 @@
 </head>
 
 <body>
+    
+    <input type="file" id="photo" onchange="pickPicture()">
+    <!-- <img id="image" alt="" width="300" height="300"> -->
+
     <button onclick="BACK()">
         PREV
     </button>
-        <img class="img" id="display" src="" alt="">
+        <img class="img" id="display" src="../" alt="">
     <button onclick="NEXT()">
         NEXT
     </button>
@@ -35,10 +39,9 @@
 
 </html>
 <script>
-    let arr = ["./img.jpeg", "./img1.jpeg","./img2.jpeg","./img3.jpeg","./img4.jpeg"]
+    let arr = []
     let dis = document.getElementById("display")
     let count = 0
-    dis.src = arr[count]
     console.log(arr[count]);
     
     function NEXT() {
@@ -60,5 +63,32 @@
             count = 0
         }
         dis.src =arr[count]
+    }
+
+     function pickPicture() {
+        let file = document.getElementById('photo').files[0]
+
+        // if (file.size / 1000 > 50) {
+        //     alert('file is greather than 50kb')
+        // }
+        // console.log(file);
+
+        if (!file) {
+            alert('please attach a file')
+        }
+
+        let reader = new FileReader()
+        reader.readAsDataURL(file)
+        reader.addEventListener('load', (ev) => {
+            let result = ev.target.result
+            console.log(result);
+            // image.src = result
+            let myResult = arr.push(result)
+            // count = arr.length - 1;
+            dis.src = arr[count]
+            console.log(myResult);
+            
+        })
+
     }
 </script>
